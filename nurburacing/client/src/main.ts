@@ -1,84 +1,33 @@
-type Todo = {
-  id: number;
-  text: string;
-  done: boolean;
-};
+import { Application, Assets, Sprite } from 'pixi.js';
 
-const todos: Todo[] = [
-  { id: 1, text: "Nauczyć się TypeScript", done: false },
-  { id: 2, text: "Odpalić projekt przez Vite", done: true },
-];
+(async () => {
+  // Create a new application
+  const app = new Application();
 
-const app = document.querySelector<HTMLDivElement>("#app");
+  // Initialize the application with a transparent background
+  await app.init({ backgroundAlpha: 0, resizeTo: window });
 
-if (!app) {
-  throw new Error("Nie znaleziono elementu #app");
-}
+  // Append the application canvas to the document body
+  document.body.appendChild(app.canvas);
 
-function renderTodos(items: Todo[]): void {
-  app.innerHTML = `
-    <h1>Moja lista zadań</h1>
+  // Load the bunny texture
+  const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
 
-    <form id="todo-form">
-      <input id="todo-input" type="text" placeholder="Nowe zadanie..." />
-      <button type="submit">Dodaj</button>
-    </form>
+  // Create a new Sprite with the texture
+  const bunny = new Sprite(texture);
 
-    <ul>
-      ${items
-        .map(
-          (todo) => `
-            <li>
-              <label>
-                <input 
-                  type="checkbox" 
-                  data-id="${todo.id}" 
-                  ${todo.done ? "checked" : ""}
-                />
-                ${todo.done ? `<s>${todo.text}</s>` : todo.text}
-              </label>
-            </li>
-          `
-        )
-        .join("")}
-    </ul>
-  `;
+  // Center the sprite's anchor point
+  bunny.anchor.set(0.5);
 
-  const form = document.querySelector<HTMLFormElement>("#todo-form");
-  const input = document.querySelector<HTMLInputElement>("#todo-input");
+  // Move the sprite to the center of the screen
+  bunny.x = app.screen.width / 2;
+  bunny.y = app.screen.height / 2;
 
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
+  app.stage.addChild(bunny);
 
-    if (!input || input.value.trim() === "") {
-      return;
-    }
-
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: input.value.trim(),
-      done: false,
-    };
-
-    todos.push(newTodo);
-    renderTodos(todos);
+  // Listen for animate update
+  app.ticker.add(() => {
+    // Just for fun, let's rotate our bunny over time!
+    bunny.rotation += 0.1;
   });
-
-  const checkboxes = document.querySelectorAll<HTMLInputElement>(
-    "input[type='checkbox'][data-id]"
-  );
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      const id = Number(checkbox.dataset.id);
-      const todo = todos.find((item) => item.id === id);
-
-      if (todo) {
-        todo.done = checkbox.checked;
-        renderTodos(todos);
-      }
-    });
-  });
-}
-
-renderTodos(todos);
+})();
