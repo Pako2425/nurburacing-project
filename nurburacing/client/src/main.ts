@@ -39,7 +39,7 @@ async function main() {
 		w_mainMenu, h_mainMenu)
 		.fill(0x0055AA);
 		
-	const 	
+		
 	
 	app.stage.addChild(mainMenu);
 }
