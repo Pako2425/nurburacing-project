@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>client</title>
   </head>
@@ -11,11 +12,13 @@
 	
 	<div id="main_menu" name="main_menu">
 		<h1>NURBURACING</h1>
-		<input type="text" id="user_nickname_input" name="user_nickname_input">
-		<button id="bt_guest_login">DOŁĄCZ JAKO GOŚĆ</button>
-		<p>LUB</p>
-		<button id="bt_user_login">ZALOGUJ SIĘ</button>
-		<span>Nie masz konta? <a href="#">Zarejestruj się</a> i zapisuj swoje wyniki.
+		<input type="text" placeholder="Twoja ksywa..." id="user_nickname_input" name="user_nickname_input">
+		<button id="btn_guest_login" class="btn">DOŁĄCZ JAKO GOŚĆ</button>
+		<span style="font-size: 2rem; margin: 1rem;" font>LUB</span>
+		<button id="btn_user_login" class="btn">ZALOGUJ SIĘ</button>
+		<span style="font-size: 1.5rem; margin-top: 1rem;">Nie masz konta?</span>
+		<span style="font-size: 1.5rem;">
+			<a style="color: red;" href="#">Zarejestruj się</a> i zapisuj swoje wyniki.</span>
 		
 	
 	</div>
