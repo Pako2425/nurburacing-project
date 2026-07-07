@@ -1,3 +1,5 @@
+import { Container } from 'pixi.js';
+
 export class Camera {
 	xpos: number;
 	ypos: number;
@@ -18,15 +20,18 @@ export class Camera {
 		this.attachedContainer.position.y = this.ypos;
 	}
 	
-	setZoom(zoomValue: number) {
+	setZoom(zoomValue: number): void {
 		this.zoom = zoomValue;
 		this.attachedContainer.scale.set(this.zoom);
 	}
 	
-	constructor(init_xpos: number = 0, init_ypos: number = 0, attachedContainer: Container) {
+	attachContainer(container: Container): void {
+		this.attachedContainer = container;
+	}
+	
+	constructor(init_xpos: number = 0, init_ypos: number = 0) {
 		this.xpos = init_xpos;
 		this.ypos = init_ypos;
-		this.attachedContainer = attachedContainer;
-		
 	}
+	
 };

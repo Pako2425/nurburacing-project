@@ -35,7 +35,9 @@ async function main() {
 	worldContainer.addChild(playerCarSprite);
 
 
-	const MainCamera = new Camera(0,0, worldContainer);
+	//const MainCamera = new Camera(0,0, worldContainer);
+	const MainCamera = new Camera(0,0);
+	MainCamera.attachContainer(worldContainer);
 	
 	
 	app.stage.addChild(worldContainer);
