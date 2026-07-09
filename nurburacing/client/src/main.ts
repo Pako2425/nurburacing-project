@@ -1,6 +1,7 @@
 import { Application, Assets, Texture, Sprite, Graphics, Container} from 'pixi.js';
 import { Camera } from './Camera.ts';
 import { Player } from './Player.ts';
+import { Keyboard } from './Keyboard.ts';
 
 // Główna pętla
 async function main() {
@@ -33,19 +34,30 @@ async function main() {
 	const MainCamera = new Camera(0, 0);
 	MainCamera.attachContainer(worldContainer);
 	
+	let keyboard = new Keyboard();
+	let a: Record<string, boolean>; 
 	
 	app.stage.addChild(worldContainer);
 	MainCamera.moveTo(0,0);
 	MainCamera.zoom = 1;
 	app.ticker.add(() => {
-		if(MainCamera.zoom < 10) {
-			MainCamera.zoom += 0.01;
+
+		a = keyboard.readInput();
+		if(a['d']) {
+			player.carSprite.position.x += 5;
 		}
-		else {
-			MainCamera.zoom = 1;
+		if(a['a']) {
+			player.carSprite.position.x -= 5;
 		}
-		MainCamera.setZoom(MainCamera.zoom);
+		if(a['w']) {
+			player.carSprite.position.y -= 5;
+		}
+		if(a['s']) {
+			player.carSprite.position.y += 5;
+		}
 	});
 }
+
+
 
 main();
