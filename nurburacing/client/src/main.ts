@@ -69,6 +69,7 @@ async function main() {
 		}
 		
 		player.update();
+		camera.update();
 	});
 }
 

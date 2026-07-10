@@ -11,15 +11,15 @@ export class Camera {
 	moveTo(x: number, y: number): void {
 		this.xpos = x;
 		this.ypos = y;
-		this.attachedContainer.position.x = this.xpos + this.width/2;
-		this.attachedContainer.position.y = this.ypos + this.height/2;
+		//this.attachedContainer.position.x = this.xpos + this.width/2;
+		//this.attachedContainer.position.y = this.ypos + this.height/2;
 	}
 	
 	move(dx: number, dy: number): void {
 		this.xpos += dx;
 		this.ypos += dy;
-		this.attachedContainer.position.x = this.xpos + this.width/2;
-		this.attachedContainer.position.y = this.ypos + this.height/2;
+		//this.attachedContainer.position.x = this.xpos + this.width/2;
+		//this.attachedContainer.position.y = this.ypos + this.height/2;
 	}
 	
 	setZoom(zoomValue: number): void {
@@ -36,6 +36,11 @@ export class Camera {
 		this.ypos = init_ypos;
 		this.width = 1024;
 		this.height = 768;
+	}
+	
+	update(): void {
+		this.attachedContainer.position.x = this.xpos + this.width/2;
+		this.attachedContainer.position.y = this.ypos + this.height/2;
 	}
 	
 };
