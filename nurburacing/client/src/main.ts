@@ -45,6 +45,9 @@ async function main() {
 	app.stage.addChild(worldContainer);
 	camera.moveTo(0,0);
 	camera.zoom = 1;
+	
+	
+	
 	app.ticker.add(() => {
 
 		a = keyboard.readInput();
@@ -64,6 +67,8 @@ async function main() {
 			player.move(0,5);
 			camera.move(0,-5);
 		}
+		
+		player.update();
 	});
 }
 

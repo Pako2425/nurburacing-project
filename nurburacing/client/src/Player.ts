@@ -19,13 +19,14 @@ export class Player {
 	move(dx: number, dy: number): void {
 		this.position.x += dx;
 		this.position.y += dy;
-		this.carSprite.position.x = this.position.x;
-		this.carSprite.position.y = this.position.y;
 	}
 	
 	moveTo(x: number, y: number): void {
 		this.position.x = x;
 		this.position.y = y;
+	}
+	
+	update(): void {
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
 	}
