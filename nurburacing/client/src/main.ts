@@ -44,16 +44,20 @@ async function main() {
 
 		a = keyboard.readInput();
 		if(a['d']) {
-			player.carSprite.position.x += 5;
+			//player.carSprite.position.x += 5;
+			player.move(5,0);
 		}
 		if(a['a']) {
-			player.carSprite.position.x -= 5;
+			//player.carSprite.position.x -= 5;
+			player.move(-5,0);
 		}
 		if(a['w']) {
-			player.carSprite.position.y -= 5;
+			//player.carSprite.position.y -= 5;
+			player.move(0,-5);
 		}
 		if(a['s']) {
-			player.carSprite.position.y += 5;
+			//player.carSprite.position.y += 5;
+			player.move(0,5);
 		}
 	});
 }
