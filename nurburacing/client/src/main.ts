@@ -16,48 +16,53 @@ async function main() {
 
 	document.body.appendChild(app.canvas);
 
+
+
 	const worldContainer = new Container;
 	
-	// tor
 	const worldTexture = await Assets.load<Texture>('/assets/tracks/test_track.png');
 	const worldSprite = new Sprite(worldTexture);
 	worldSprite.scale = 0.7;
 		
 	worldContainer.addChild(worldSprite);
 	
-	// samochód
+	
+	
 	const playerCarTexture = await Assets.load<Texture>('/assets/cars/fwd_car.png');
 	
-	const player = new Player(20, 20, playerCarTexture);
+	const player = new Player(0, 0, playerCarTexture);
 	worldContainer.addChild(player.carSprite);
 
-	const MainCamera = new Camera(0, 0);
-	MainCamera.attachContainer(worldContainer);
+	const camera = new Camera(0, 0);
+	camera.attachContainer(worldContainer);
+	camera.moveTo(0,0);
+	camera.attachedContainer.position.x += 512;
+	camera.attachedContainer.position.y += 384;
 	
 	let keyboard = new Keyboard();
 	let a: Record<string, boolean>; 
 	
 	app.stage.addChild(worldContainer);
-	MainCamera.moveTo(0,0);
-	MainCamera.zoom = 1;
+	camera.moveTo(0,0);
+	camera.zoom = 1;
 	app.ticker.add(() => {
 
 		a = keyboard.readInput();
 		if(a['d']) {
-			//player.carSprite.position.x += 5;
 			player.move(5,0);
+			camera.move(-5,0);
 		}
 		if(a['a']) {
-			//player.carSprite.position.x -= 5;
 			player.move(-5,0);
+			camera.move(5,0);
 		}
 		if(a['w']) {
-			//player.carSprite.position.y -= 5;
 			player.move(0,-5);
+			camera.move(0,5);
 		}
 		if(a['s']) {
-			//player.carSprite.position.y += 5;
 			player.move(0,5);
+			camera.move(0,-5);
 		}
 	});
 }

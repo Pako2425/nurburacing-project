@@ -11,6 +11,7 @@ export class Player {
 		this.carSprite = new Sprite(carTexture);
 		this.carSprite.width = 100;
 		this.carSprite.height = 100;
+		this.carSprite.anchor.set(0.5,0.5);
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
 	}
