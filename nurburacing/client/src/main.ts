@@ -43,33 +43,22 @@ async function main() {
 	let a: Record<string, boolean>; 
 	
 	app.stage.addChild(worldContainer);
+	
 	camera.moveTo(0,0);
 	camera.zoom = 1;
-	
-	
+	camera.followPlayer(player);
 	
 	app.ticker.add(() => {
 
 		a = keyboard.readInput();
-		if(a['d']) {
-			player.move(5,0);
-			camera.move(-5,0);
-		}
-		if(a['a']) {
-			player.move(-5,0);
-			camera.move(5,0);
-		}
-		if(a['w']) {
-			player.move(0,-5);
-			camera.move(0,5);
-		}
-		if(a['s']) {
-			player.move(0,5);
-			camera.move(0,-5);
-		}
+		if(a['d']) { player.move(player.speed,0); }
+		if(a['a']) { player.move(-player.speed,0); }
+		if(a['w']) { player.move(0,-player.speed); }
+		if(a['s']) { player.move(0,player.speed); }
 		
 		player.update();
 		camera.update();
+		
 	});
 }
 

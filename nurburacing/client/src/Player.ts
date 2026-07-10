@@ -5,6 +5,7 @@ export class Player {
 	width: number;
 	height: number;
 	carSprite: Sprite;
+	speed: number;
 	
 	constructor(x_init: number = 0, y_init: number = 0, carTexture: Texture) {
 		this.position = new Point(x_init, y_init);
@@ -14,6 +15,7 @@ export class Player {
 		this.carSprite.anchor.set(0.5,0.5);
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
+		this.speed = 15;
 	}
 	
 	move(dx: number, dy: number): void {

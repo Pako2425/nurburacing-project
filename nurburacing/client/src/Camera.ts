@@ -1,5 +1,9 @@
 import { Container } from 'pixi.js';
 
+interface FollowAbleObject {
+	position: {x: number, y: number};
+}
+
 export class Camera {
 	xpos: number;
 	ypos: number;
@@ -7,6 +11,14 @@ export class Camera {
 	zoom: number;
 	width: number;
 	height: number;
+	fobj: FollowAbleObject;
+	
+	constructor(init_xpos: number = 0, init_ypos: number = 0) {
+		this.xpos = init_xpos;
+		this.ypos = init_ypos;
+		this.width = 1024;
+		this.height = 768;
+	}
 	
 	moveTo(x: number, y: number): void {
 		this.xpos = x;
@@ -31,16 +43,15 @@ export class Camera {
 		this.attachedContainer = container;
 	}
 	
-	constructor(init_xpos: number = 0, init_ypos: number = 0) {
-		this.xpos = init_xpos;
-		this.ypos = init_ypos;
-		this.width = 1024;
-		this.height = 768;
+	followPlayer(fobj: FollowAbleObject) {
+		this.fobj = fobj;
 	}
 	
 	update(): void {
-		this.attachedContainer.position.x = this.xpos + this.width/2;
-		this.attachedContainer.position.y = this.ypos + this.height/2;
+		this.xpos = this.fobj.position.x;
+		this.ypos = this.fobj.position.y;
+		this.attachedContainer.position.x = -this.xpos + this.width/2;
+		this.attachedContainer.position.y = -this.ypos + this.height/2;
 	}
 	
 };
