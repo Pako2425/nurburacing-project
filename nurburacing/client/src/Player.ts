@@ -66,7 +66,8 @@ export class Player {
 			else { this.speed = 0; }
 		}
 		
-		this.rotation += steeringAngle;
+		if( this.speed > 0 ) { this.rotation += steeringAngle; }
+		
 		
 		this.x_speed = this.speed * Math.cos(this.rotation);
 		this.y_speed = this.speed * Math.sin(this.rotation);
