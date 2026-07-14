@@ -52,7 +52,10 @@ export class Player {
 		this.position.y = y;
 	}
 	
-	drive(gas: boolean, brake: boolean, steeringAngle: number) {
+	drive(gas: boolean, brake: boolean, steering: number) {
+		
+		let d_steeringAngle: number = 0.01;
+		
 		if( gas ) {
 			if( this.speed <= this.maxSpeed ) { this.speed += this.gas_acc; }
 			else { this.speed = this.maxSpeed; }
@@ -66,9 +69,9 @@ export class Player {
 			else { this.speed = 0; }
 		}
 		
-		if( this.speed > 0 ) { this.rotation += steeringAngle; }
+		if( this.speed > 0 ) { this.rotation += d_steeringAngle*steering; }
 		
-		
+				
 		this.x_speed = this.speed * Math.cos(this.rotation);
 		this.y_speed = this.speed * Math.sin(this.rotation);
 		this.position.x += this.x_speed;

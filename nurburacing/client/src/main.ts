@@ -50,20 +50,26 @@ async function main() {
 	
 	let gas: boolean;
 	let brake: boolean;
-	let steeringAngle: number;
+	let steering: number;
 	
 	app.ticker.add(() => {
 		gas = false;
 		brake = false;
-		steeringAngle = 0;
+		steering = 0;
 
 		a = keyboard.readInput();
-		if(a['d']) { steeringAngle = 0.01; }
-		if(a['a']) { steeringAngle = -0.01; }
-		if(a['w']) { gas = true; }
-		if(a['s']) { brake = true; }
+		if(a['d']) { steering = 1; }
+		else if(a['a']) { steering = -1; }
+		else { steering = 0; }
 		
-		player.drive(gas, brake, steeringAngle);
+		if(a['w']) { gas = true; }
+		else if(a['s']) { brake = true; }
+		else { 
+			gas = false;
+			brake = false; 
+		}
+		
+		player.drive(gas, brake, steering);
 		
 		player.update();
 		camera.update();
