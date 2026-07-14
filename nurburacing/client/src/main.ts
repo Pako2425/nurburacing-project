@@ -51,10 +51,11 @@ async function main() {
 	app.ticker.add(() => {
 
 		a = keyboard.readInput();
-		if(a['d']) { player.move(player.speed,0); }
-		if(a['a']) { player.move(-player.speed,0); }
-		if(a['w']) { player.move(0,-player.speed); }
-		if(a['s']) { player.move(0,player.speed); }
+		//if(a['d']) { player.drive(false, false, 0); }
+		//if(a['a']) { player.drive(false, false, 0); }
+		if(a['w']) { player.drive(true, false, 0); }
+		else if(a['s']) { player.drive(false, true, 0); }
+		else { player.drive(false, false, 0); }
 		
 		player.update();
 		camera.update();
