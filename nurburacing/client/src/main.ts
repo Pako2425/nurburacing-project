@@ -48,14 +48,22 @@ async function main() {
 	camera.zoom = 1;
 	camera.followPlayer(player);
 	
+	let gas: boolean;
+	let brake: boolean;
+	let steeringAngle: number;
+	
 	app.ticker.add(() => {
+		gas = false;
+		brake = false;
+		steeringAngle = 0;
 
 		a = keyboard.readInput();
-		//if(a['d']) { player.drive(false, false, 0); }
-		//if(a['a']) { player.drive(false, false, 0); }
-		if(a['w']) { player.drive(true, false, 0); }
-		else if(a['s']) { player.drive(false, true, 0); }
-		else { player.drive(false, false, 0); }
+		if(a['d']) { steeringAngle = 0.01; }
+		if(a['a']) { steeringAngle = -0.01; }
+		if(a['w']) { gas = true; }
+		if(a['s']) { brake = true; }
+		
+		player.drive(gas, brake, steeringAngle);
 		
 		player.update();
 		camera.update();

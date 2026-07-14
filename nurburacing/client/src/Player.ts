@@ -23,8 +23,8 @@ export class Player {
 		this.position = new Point(x_init, y_init);
 		this.rotation = 0;
 		this.carSprite = new Sprite(carTexture);
-		this.carSprite.width = 100;
-		this.carSprite.height = 100;
+		this.carSprite.width = 200;
+		this.carSprite.height = 200;
 		this.carSprite.anchor.set(0.5,0.5);
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
@@ -66,8 +66,10 @@ export class Player {
 			else { this.speed = 0; }
 		}
 		
+		this.rotation += steeringAngle;
+		
 		this.x_speed = this.speed * Math.cos(this.rotation);
-		this.y_speed = this.y_speed * Math.sin(this.rotation);
+		this.y_speed = this.speed * Math.sin(this.rotation);
 		this.position.x += this.x_speed;
 		this.position.y += this.y_speed;
 	}
@@ -75,5 +77,7 @@ export class Player {
 	update(): void {
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
+		this.carSprite.rotation = this.rotation;
+		console.log("R: " + this.rotation + " X: " + this.x_speed + " Y: " + this.y_speed);
 	}
 }
