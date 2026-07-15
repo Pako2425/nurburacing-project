@@ -34,11 +34,14 @@ async function main() {
 	const worldCollisionPixelsList = worldCollisionPixels.pixels;
 	
 	function isOnRoad(player: Player): boolean {
-		let px: number = player.position.x;
-		let py: number = player.position.y;
+		const px: number = player.position.x;
+		const py: number = player.position.y;
 		
-		let cnt: number = (Math.floor(px) + 5016*Math.floor(py))*4;
-		if(worldCollisionPixelsList[cnt] > 0) {console.log("HIT")};
+		const pixel: number = (Math.floor(px) + 5016*Math.floor(py))*4;
+		
+		const r_det = worldCollisionPixelsList[pixel];
+		//const g_det = worldCollisionPixelsList[cnt+1];
+		//const b_det = worldCollisionPixelsList[cnt+2];
 	}
 	
 	
@@ -53,8 +56,8 @@ async function main() {
 	camera.attachedContainer.position.x += 512;
 	camera.attachedContainer.position.y += 384;
 	
-	let keyboard = new Keyboard();
-	let a: Record<string, boolean>; 
+	const keyboard = new Keyboard();
+	let keys: Record<string, boolean>; 
 	
 	app.stage.addChild(worldContainer);
 	
@@ -73,13 +76,13 @@ async function main() {
 		brake = false;
 		steering = 0;
 
-		a = keyboard.readInput();
-		if(a['d']) { steering = 1; }
-		else if(a['a']) { steering = -1; }
+		keys = keyboard.readInput();
+		if(keys['d']) { steering = 1; }
+		else if(keys['a']) { steering = -1; }
 		else { steering = 0; }
 		
-		if(a['w']) { gas = true; }
-		else if(a['s']) { brake = true; }
+		if(keys['w']) { gas = true; }
+		else if(keys['s']) { brake = true; }
 		else { 
 			gas = false;
 			brake = false; 
