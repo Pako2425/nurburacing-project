@@ -16,16 +16,16 @@ export class Player {
 	brake_acc: number;
 	dec: number;
 	
-	steeringAngle: number;
+	d_steeringAngle: number;
 	maxSteeringAngle: number;
 	
 	constructor(x_init: number = 0, y_init: number = 0, carTexture: Texture) {
 		this.position = new Point(x_init, y_init);
 		this.rotation = 0;
 		this.carSprite = new Sprite(carTexture);
-		this.carSprite.width = 200;
-		this.carSprite.height = 200;
-		this.carSprite.anchor.set(0.5,0.5);
+		this.carSprite.width = 170;
+		this.carSprite.height = 170;
+		this.carSprite.anchor.set(0.38,0.5);
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
 		
@@ -34,12 +34,10 @@ export class Player {
 		this.y_speed = 0;
 		this.maxSpeed = 15;
 		
-		this.gas_acc = 1/60;
-		this.brake_acc = 1/30;
+		this.gas_acc = 1/30;
+		this.brake_acc = 1/10;
 		this.dec = 1/180;
-		
-		this.steeringAngle = 0;
-		this.maxSteeringAngle = 30;
+
 	}
 	
 	move(dx: number, dy: number): void {
@@ -53,9 +51,7 @@ export class Player {
 	}
 	
 	drive(gas: boolean, brake: boolean, steering: number) {
-		
-		let d_steeringAngle: number = 0.01;
-		
+
 		if( gas ) {
 			if( this.speed <= this.maxSpeed ) { this.speed += this.gas_acc; }
 			else { this.speed = this.maxSpeed; }
@@ -69,8 +65,25 @@ export class Player {
 			else { this.speed = 0; }
 		}
 		
-		if( this.speed > 0 ) { this.rotation += d_steeringAngle*steering; }
-		
+		let d_steeringAngle: number = 0.0;
+		/*
+		if( this.speed >= 0.01*this.maxSpeed ) {
+			
+			d_steeringAngle = 0.005;
+			
+			if( this.speed < 0.3*this.maxSpeed ) {
+				d_steeringAngle = 0.02;
+			}
+			else {
+				d_steeringAngle = 0.01;
+			}
+			
+			this.rotation += d_steeringAngle*steering;
+		}*/
+		if( this.speed > 0 ) {
+			d_steeringAngle = 0.02;
+		}
+		this.rotation += d_steeringAngle*steering;
 				
 		this.x_speed = this.speed * Math.cos(this.rotation);
 		this.y_speed = this.speed * Math.sin(this.rotation);
@@ -82,6 +95,6 @@ export class Player {
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;
 		this.carSprite.rotation = this.rotation;
-		console.log("R: " + this.rotation + " X: " + this.x_speed + " Y: " + this.y_speed);
+		
 	}
 }
