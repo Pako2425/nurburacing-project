@@ -24,7 +24,7 @@ async function main() {
 	const worldTexture_collisionLayer = await Assets.load<Texture>('assets/tracks/test_track_collision_layer.png');
 	
 	const worldSprite = new Sprite(worldTexture);
-	worldSprite.scale = 0.7;	
+	//worldSprite.scale = 0.7;	
 	worldContainer.addChild(worldSprite);
 	
 	const worldCollisionPixels = app.renderer.extract.pixels({
@@ -32,6 +32,14 @@ async function main() {
 	})
 	
 	const worldCollisionPixelsList = worldCollisionPixels.pixels;
+	
+	function isOnRoad(player: Player): boolean {
+		let px: number = player.position.x;
+		let py: number = player.position.y;
+		
+		let cnt: number = (Math.floor(px) + 5016*Math.floor(py))*4;
+		if(worldCollisionPixelsList[cnt] > 0) {console.log("HIT")};
+	}
 	
 	
 	const playerCarTexture = await Assets.load<Texture>('/assets/cars/fwd_car.png');
@@ -58,6 +66,8 @@ async function main() {
 	let brake: boolean;
 	let steering: number;
 	
+	
+	
 	app.ticker.add(() => {
 		gas = false;
 		brake = false;
@@ -76,7 +86,7 @@ async function main() {
 		}
 		
 		player.drive(gas, brake, steering);
-		
+		isOnRoad(player);
 		player.update();
 		camera.update();
 		
