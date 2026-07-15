@@ -66,20 +66,7 @@ export class Player {
 		}
 		
 		let d_steeringAngle: number = 0.0;
-		/*
-		if( this.speed >= 0.01*this.maxSpeed ) {
-			
-			d_steeringAngle = 0.005;
-			
-			if( this.speed < 0.3*this.maxSpeed ) {
-				d_steeringAngle = 0.02;
-			}
-			else {
-				d_steeringAngle = 0.01;
-			}
-			
-			this.rotation += d_steeringAngle*steering;
-		}*/
+
 		if( this.speed > 0 ) {
 			d_steeringAngle = 0.02;
 		}
