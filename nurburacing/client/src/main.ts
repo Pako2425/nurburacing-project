@@ -21,11 +21,17 @@ async function main() {
 	const worldContainer = new Container;
 	
 	const worldTexture = await Assets.load<Texture>('/assets/tracks/test_track.png');
+	const worldTexture_collisionLayer = await Assets.load<Texture>('assets/tracks/test_track_collision_layer.png');
+	
 	const worldSprite = new Sprite(worldTexture);
-	worldSprite.scale = 0.7;
-		
+	worldSprite.scale = 0.7;	
 	worldContainer.addChild(worldSprite);
 	
+	const worldCollisionPixels = app.renderer.extract.pixels({
+		target: worldTexture_collisionLayer,
+	})
+	
+	const worldCollisionPixelsList = worldCollisionPixels.pixels;
 	
 	
 	const playerCarTexture = await Assets.load<Texture>('/assets/cars/fwd_car.png');
