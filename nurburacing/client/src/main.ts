@@ -91,7 +91,7 @@ async function main() {
 			brake = false; 
 		}
 		
-		player.drive(gas, brake, steering);
+		player.applyInput(gas, brake, steering);
 		isOnRoad(player);
 		player.update();
 		camera.update();
