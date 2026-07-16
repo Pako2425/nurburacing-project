@@ -50,7 +50,7 @@ async function main() {
 	
 	const playerCarTexture = await Assets.load<Texture>('/assets/cars/fwd_car.png');
 	
-	const player = new Player(0, 0, playerCarTexture);
+	const player = new Player(2479, 4111, 3.14, playerCarTexture);
 	worldContainer.addChild(player.carSprite);
 
 	const camera = new Camera(0, 0);

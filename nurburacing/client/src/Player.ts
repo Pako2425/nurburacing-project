@@ -20,9 +20,9 @@ export class Player {
 	d_steeringAngle: number;
 	maxSteeringAngle: number;
 	
-	constructor(x_init: number = 0, y_init: number = 0, carTexture: Texture) {
+	constructor(x_init: number = 0, y_init: number = 0, rotation: number = 0, carTexture: Texture) {
 		this.position = new Point(x_init, y_init);
-		this.rotation = 0;
+		this.rotation = rotation;
 		this.carSprite = new Sprite(carTexture);
 		this.carSprite.width = 170;
 		this.carSprite.height = 170;
