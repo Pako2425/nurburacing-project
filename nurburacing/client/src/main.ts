@@ -92,7 +92,8 @@ async function main() {
 		}
 		
 		player.applyInput(gas, brake, steering);
-		isOnRoad(player);
+		let isor: boolean = isOnRoad(player);
+		player.drive(isor);
 		player.update();
 		camera.update();
 		

@@ -77,8 +77,24 @@ export class Player {
 		this.steeringAngle = d_steeringAngle*steering;
 	}
 	
-	drive(gas: boolean, brake: boolean, steering: number): void {
+	drive(isOnRoad: boolean): void {
+		if( isOnRoad ) {
+			this.speed = this.speed;
+			this.steeringAngle = this.steeringAngle;
+		}
 		
+		else {
+			
+			if( this.speed <= 0.1*this.maxSpeed ) {
+				this.speed = this.speed;
+			}
+			
+			else {
+				this.speed -= 1/10;
+			}
+			
+			this.steeringAngle = this.steeringAngle*0.5;
+		}
 	}
 	
 	update(): void {
