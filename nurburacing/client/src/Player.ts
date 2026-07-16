@@ -78,6 +78,8 @@ export class Player {
 		this.position.y += this.y_speed;
 	}
 	
+	
+	
 	update(): void {
 		this.carSprite.position.x = this.position.x;
 		this.carSprite.position.y = this.position.y;

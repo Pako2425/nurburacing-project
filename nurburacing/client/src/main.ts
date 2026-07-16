@@ -42,6 +42,9 @@ async function main() {
 		const r_det = worldCollisionPixelsList[pixel];
 		//const g_det = worldCollisionPixelsList[cnt+1];
 		//const b_det = worldCollisionPixelsList[cnt+2];
+		
+		if( r_det > 0 ) { return true; }
+		else { return false; }
 	}
 	
 	
