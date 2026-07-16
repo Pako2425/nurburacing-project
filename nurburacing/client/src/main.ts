@@ -131,9 +131,9 @@ async function main() {
 		let isor: boolean = isOnRoad(player);
 		player.drive(isor);
 		player.powertrainDrive();
+		gauge_1_Sprite.rotation = (0.0005 * player.currentRPM) - 1.8;
 		player.update();
 		camera.update();
-		console.log(player.currentRPM);
 	});
 }
 
