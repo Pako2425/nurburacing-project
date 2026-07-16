@@ -47,8 +47,33 @@ async function main() {
 		else { return false; }
 	}
 	
-	
 	const playerCarTexture = await Assets.load<Texture>('/assets/cars/fwd_car.png');
+	
+	const HUDContainer = new Container;	
+	
+	const gaugesTexture = await Assets.load<Texture>('/assets/cars/civic-gauges.png');
+	const gaugesSprite = new Sprite(gaugesTexture);
+	
+	const gauge_1_Texture = await Assets.load<Texture>('/assets/cars/gauge_1.png');
+	const gauge_2_Texture = await Assets.load<Texture>('/assets/cars/gauge_2.png');
+	const gauge_1_Sprite = new Sprite(gauge_1_Texture);
+	const gauge_2_Sprite = new Sprite(gauge_2_Texture);
+	
+	gaugesSprite.position.set(181,571);
+	gaugesSprite.scale.set(0.3);
+	HUDContainer.addChild(gaugesSprite);
+	
+	gauge_1_Sprite.position.set(318,697);
+	gauge_1_Sprite.scale.set(0.32);
+	gauge_1_Sprite.anchor.set(0.49,0.79);
+	HUDContainer.addChild(gauge_1_Sprite);
+	
+	gauge_2_Sprite.position.set(507,695);
+	gauge_2_Sprite.scale.set(0.33);
+	gauge_2_Sprite.anchor.set(0.49,0.82);
+	HUDContainer.addChild(gauge_2_Sprite);
+	
+	
 	
 	const player = new Player(2479, 4111, 3.14, playerCarTexture);
 	worldContainer.addChild(player.carSprite);
@@ -63,6 +88,7 @@ async function main() {
 	let keys: Record<string, boolean>; 
 	
 	app.stage.addChild(worldContainer);
+	app.stage.addChild(HUDContainer);
 	
 	camera.moveTo(0,0);
 	camera.zoom = 1;
@@ -80,12 +106,22 @@ async function main() {
 		steering = 0;
 
 		keys = keyboard.readInput();
-		if(keys['d']) { steering = 1; }
-		else if(keys['a']) { steering = -1; }
-		else { steering = 0; }
+		if(keys['d']) { 
+			steering = 1;
+		}
+		else if(keys['a']) {
+			steering = -1;
+		}
+		else {
+			steering = 0; 
+		}
 		
-		if(keys['w']) { gas = true; }
-		else if(keys['s']) { brake = true; }
+		if(keys['w']) {
+			gas = true;
+		}
+		else if(keys['s']) {
+			brake = true;
+		}
 		else { 
 			gas = false;
 			brake = false; 
@@ -96,7 +132,7 @@ async function main() {
 		player.drive(isor);
 		player.update();
 		camera.update();
-		
+		console.log(player.speed);
 	});
 }
 
