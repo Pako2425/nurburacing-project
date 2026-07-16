@@ -20,6 +20,13 @@ export class Player {
 	d_steeringAngle: number;
 	maxSteeringAngle: number;
 	
+	gear: number;
+	n_gears: number
+	
+	currentRPM: number;
+	idleRPM: number;
+	maxRPM: number;
+	
 	constructor(x_init: number = 0, y_init: number = 0, rotation: number = 0, carTexture: Texture) {
 		this.position = new Point(x_init, y_init);
 		this.rotation = rotation;
@@ -33,14 +40,20 @@ export class Player {
 		this.speed = 0;
 		this.x_speed = 0;
 		this.y_speed = 0;
-		this.maxSpeed = 15;
+		this.maxSpeed = 20;
 		
 		this.gas_acc = 1/30;
 		this.brake_acc = 1/10;
 		this.dec = 1/180;
 		
 		this.steeringAngle = 0;
+		
+		this.gear = 1;
+		this.n_gears = 5;
 
+		this.idleRPM = 800;
+		this.currentRPM = this.idleRPM;
+		this.maxRPM = 8200;
 	}
 	
 	move(dx: number, dy: number): void {
@@ -95,6 +108,45 @@ export class Player {
 			
 			this.steeringAngle = this.steeringAngle*0.5;
 		}
+	}
+	
+	powertrainDrive(): void {
+		
+		let g1_r: number = 2333;
+		let g2_r: number = 1166;
+		let g3_r: number = 778;
+		let g4_r: number = 583;
+		let g5_r: number = 350;
+		
+		let ratio: number = g1_r;
+		
+		if( (0 <= this.speed) && (this.speed < 3.0) ) { 
+			this.gear = 1;
+			ratio = g1_r;
+		}
+		else if( (3.0 <= this.speed) && (this.speed < 6.0) ) {
+			this.gear = 2;
+			ratio = g2_r;
+		}
+		else if( (6.0 <= this.speed) && (this.speed < 9.0) ) {
+			this.gear = 3;
+			ratio = g3_r;
+		}
+		else if( (9.0 <= this.speed) && (this.speed < 12.0) ) {
+			this.gear = 4;
+			ratio = g4_r;
+		}
+		else if( 12.0 <= this.speed ) {
+			this.gear = 5;
+			ratio = g5_r;
+		}
+		else {
+			this.gear = 1;
+			ratio = gr1_r;
+		}
+	
+		this.currentRPM = this.idleRPM + (ratio*this.speed);
+	
 	}
 	
 	update(): void {

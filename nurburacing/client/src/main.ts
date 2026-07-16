@@ -130,9 +130,10 @@ async function main() {
 		player.applyInput(gas, brake, steering);
 		let isor: boolean = isOnRoad(player);
 		player.drive(isor);
+		player.powertrainDrive();
 		player.update();
 		camera.update();
-		console.log(player.speed);
+		console.log(player.currentRPM);
 	});
 }
 
