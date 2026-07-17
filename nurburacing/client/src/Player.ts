@@ -142,7 +142,7 @@ export class Player {
 		}
 		else {
 			this.gear = 1;
-			ratio = gr1_r;
+			ratio = g1_r;
 		}
 	
 		this.currentRPM = this.idleRPM + (ratio*this.speed);

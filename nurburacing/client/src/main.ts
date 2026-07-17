@@ -1,7 +1,9 @@
-import { Application, Assets, Texture, Sprite, Graphics, Container} from 'pixi.js';
+import { Application, Assets, Texture, Sprite, Graphics, Container } from 'pixi.js';
+import { Howl } from 'howler';
 import { Camera } from './Camera.ts';
 import { Player } from './Player.ts';
 import { Keyboard } from './Keyboard.ts';
+
 
 // Główna pętla
 async function main() {
@@ -98,8 +100,21 @@ async function main() {
 	let brake: boolean;
 	let steering: number;
 	
+	const civic_sound = new Howl ({
+		src: ['/assets/cars/civic_engine_sound_1.mp3'],
+		loop: true
+	});
 	
+	const tire_sound = new Howl({
+		src: ['/assets/cars/tire_sound_1.mp3'],
+		loop: true
+	});
 	
+	civic_sound.rate(0.4);
+	civic_sound.volume(0.5);
+	civic_sound.play();
+	
+	tire_sound.volume(0.1);
 	app.ticker.add(() => {
 		gas = false;
 		brake = false;
@@ -132,6 +147,13 @@ async function main() {
 		player.drive(isor);
 		player.powertrainDrive();
 		gauge_1_Sprite.rotation = (0.0005 * player.currentRPM) - 1.8;
+		
+		let rate: number = (player.currentRPM/6500) + 0.3;
+		civic_sound.rate(rate)
+		
+		if(player.speed > 10.0 && steering != 0) {tire_sound.play();}
+		else {tire_sound.stop();}
+		
 		player.update();
 		camera.update();
 	});
