@@ -1,4 +1,4 @@
-import { Application, Assets, Texture, Sprite, Graphics, Container } from 'pixi.js';
+import { Application, Assets, Texture, Sprite, Graphics, Container, Point } from 'pixi.js';
 import { Howl } from 'howler';
 import { Camera } from './Camera.ts';
 import { Player } from './Player.ts';
@@ -129,8 +129,14 @@ async function main() {
 	shifterSprite.scale.set(0.1);
 	knobSprite.scale.set(0.1);
 	
-	knobSprite.position.x = 12;
-	knobSprite.position.y = 8;
+	const c_knob1: Point = { x: 12, y: 8 };
+	const c_knob2: Point = { x: 12, y: 68 };
+	const c_knob3: Point = { x: 37, y: 8 };
+	const c_knob4: Point = { x: 37, y: 68 };
+	const c_knob5: Point = { x: 62, y: 8 };
+	
+	knobSprite.position = c_knob1;
+	
 	
 	const gearShifterContainer = new Container();
 	gearShifterContainer.addChild(shifterSprite);
@@ -145,6 +151,7 @@ async function main() {
 	civic_sound.volume(0.5);
 	civic_sound.play();
 	tire_sound.volume(0.1);
+	
 	
 	app.ticker.add(() => {
 		gas = false;
@@ -186,6 +193,10 @@ async function main() {
 			if(tire_sound.play());
 		}
 		else {tire_sound.stop();}
+		
+		if(player.f_shiftUp || player.f_shiftDown) {
+			gear_shift_sound.play();
+		}
 		
 		player.update();
 		camera.update();

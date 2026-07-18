@@ -27,6 +27,9 @@ export class Player {
 	idleRPM: number;
 	maxRPM: number;
 	
+	f_shiftUp: boolean;
+	f_shiftDown: boolean;
+	
 	constructor(x_init: number = 0, y_init: number = 0, rotation: number = 0, carTexture: Texture) {
 		this.position = new Point(x_init, y_init);
 		this.rotation = rotation;
@@ -54,6 +57,9 @@ export class Player {
 		this.idleRPM = 800;
 		this.currentRPM = this.idleRPM;
 		this.maxRPM = 8200;
+		
+		this.f_shiftUp = false;
+		this.f_shiftDown = false;
 	}
 	
 	move(dx: number, dy: number): void {
@@ -111,6 +117,7 @@ export class Player {
 	}
 	
 	powertrainDrive(): void {
+		let cGear = this.gear;
 		
 		let g1_r: number = 2333;
 		let g2_r: number = 1166;
@@ -146,6 +153,17 @@ export class Player {
 		}
 	
 		this.currentRPM = this.idleRPM + (ratio*this.speed);
+		
+		if(cGear < this.gear) {
+			this.f_shiftUp = true;
+		}
+		else if(cGear > this.gear) {
+			this.f_shiftDown = true;
+		}
+		else {
+			this.f_shiftUp = false;
+			this.f_shiftDown = false;
+		}
 	
 	}
 	
