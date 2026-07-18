@@ -129,14 +129,12 @@ async function main() {
 	shifterSprite.scale.set(0.1);
 	knobSprite.scale.set(0.1);
 	
-	const c_knob1: Point = { x: 12, y: 8 };
-	const c_knob2: Point = { x: 12, y: 68 };
-	const c_knob3: Point = { x: 37, y: 8 };
-	const c_knob4: Point = { x: 37, y: 68 };
-	const c_knob5: Point = { x: 62, y: 8 };
-	
-	knobSprite.position = c_knob1;
-	
+	const c_knob: Point[] = [
+		{ x: 12, y: 8 },
+		{ x: 12, y: 68 },
+		{ x: 37, y: 8 },
+		{ x: 37, y: 68 },
+		{ x: 62, y: 8 }];
 	
 	const gearShifterContainer = new Container();
 	gearShifterContainer.addChild(shifterSprite);
@@ -200,6 +198,8 @@ async function main() {
 		
 		player.update();
 		camera.update();
+		
+		knobSprite.position = c_knob[player.gear-1];
 	});
 }
 
