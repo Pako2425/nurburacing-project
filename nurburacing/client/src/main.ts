@@ -5,6 +5,8 @@ import { Player } from './Player.ts';
 import { Keyboard } from './Keyboard.ts';
 
 
+
+
 // Główna pętla
 async function main() {
 		
@@ -110,11 +112,40 @@ async function main() {
 		loop: true
 	});
 	
+	const exhaust_pop_sound = new Howl({
+		src: ['/assets/cars/tire_sound_1.mp3'],
+		loop: true
+	});
+	
+	const gear_shift_sound = new Howl({
+		src: ['/assets/cars/gear_shift_sound.mp3']
+	});
+	
+	const shifterTexture = await Assets.load<Texture>('/assets/cars/gear_shifter.png');
+	const knobTexture = await Assets.load<Texture>('/assets/cars/gear_shifter_knob.png');
+	const shifterSprite = new Sprite(shifterTexture);
+	const knobSprite = new Sprite(knobTexture);
+	
+	shifterSprite.scale.set(0.1);
+	knobSprite.scale.set(0.1);
+	
+	knobSprite.position.x = 12;
+	knobSprite.position.y = 8;
+	
+	const gearShifterContainer = new Container();
+	gearShifterContainer.addChild(shifterSprite);
+	gearShifterContainer.addChild(knobSprite);
+	
+	HUDContainer.addChild(gearShifterContainer);
+	
+	gearShifterContainer.position.x = 830;
+	gearShifterContainer.position.y = 620;
+	
 	civic_sound.rate(0.4);
 	civic_sound.volume(0.5);
 	civic_sound.play();
-	
 	tire_sound.volume(0.1);
+	
 	app.ticker.add(() => {
 		gas = false;
 		brake = false;
@@ -151,7 +182,9 @@ async function main() {
 		let rate: number = (player.currentRPM/6500) + 0.3;
 		civic_sound.rate(rate)
 		
-		if(player.speed > 10.0 && steering != 0) {tire_sound.play();}
+		if(player.speed > 10.0 && steering != 0) {
+			if(tire_sound.play());
+		}
 		else {tire_sound.stop();}
 		
 		player.update();
